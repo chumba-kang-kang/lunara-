@@ -1,0 +1,220 @@
+/* 🌸 Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #fff8fb;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* 🌙 Header */
+header {
+  width: 100%;
+  background: #ffe5ec;
+  color: #d63384;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 1.3rem;
+}
+
+header .logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+#logoutBtn {
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#logoutBtn:hover {
+  background: #d63384;
+}
+
+/* 🌸 Auth Pages */
+.auth-container {
+  margin-top: 100px;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.auth-container .logo {
+  width: 50px;
+  margin-bottom: 10px;
+}
+
+.auth-container h1 {
+  color: #d63384;
+  margin-bottom: 20px;
+}
+
+.auth-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.auth-container button {
+  width: 100%;
+  background: #ff4d6d;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.auth-container button:hover {
+  background: #d63384;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.redirect-text {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+.redirect-text a {
+  color: #d63384;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* 🌷 Calendar */
+.calendar-container {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  width: 95%;
+  max-width: 420px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.day {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  font-weight: 500;
+  color: #333;
+}
+
+.safe {
+  background: #b3e5fc; /* 🩵 Safe days */
+}
+.fertile {
+  background: #a5d6a7; /* 💚 Fertile days */
+}
+.ovulation {
+  background: #ef9a9a; /* ❤️ Ovulation day */
+}
+
+#welcomeMessage {
+  margin-top: 15px;
+  color: #d63384;
+  font-weight: 600;
+}
+
+#cycleStatus {
+  margin-top: 5px;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+footer {
+  margin-top: auto;
+  padding: 10px;
+  font-size: 0.8rem;
+  color: #999;
+  text-align: center;
+}
+
+/* 🌼 Responsive Design */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1rem;
+  }
+  #calendar {
+    gap: 3px;
+  }
+  .calendar-container {
+    padding: 15px;
+  }
+}
+.login-container, .signup-container {
+  width: 300px;
+  margin: 80px auto;
+  background-color: rgba(255, 245, 248, 0.95);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-container h2, .signup-container h2 {
+  color: #ff5c8d;
+  margin-bottom: 20px;
+}
+
+form input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ffd6e0;
+  border-radius: 8px;
+}
+
+form button {
+  background-color: #ff5c8d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #ff79a1;
+}
