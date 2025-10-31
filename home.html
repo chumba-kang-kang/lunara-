@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lunara Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1>🌙 Lunara</h1>
+    <div>
+      <a href="home.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="index.html" onclick="logout()">Logout</a>
+    </div>
+  </nav>
+
+  <div class="dashboard">
+    <!-- Left panel -->
+    <div class="left-panel">
+      <h2>Welcome, <span id="usernameDisplay"></span> 🌸</h2>
+
+      <div class="profile-stats">
+        <p><strong>Next Period Start:</strong> <span id="nextPeriod">-</span></p>
+        <p><strong>Fertile Window:</strong> <span id="fertileWindow">-</span></p>
+        <p><strong>Ovulation Day:</strong> <span id="ovulationDay">-</span></p>
+      </div>
+
+      <h3>Update Your Cycle</h3>
+      <form id="cycleForm" onsubmit="generateCalendar(event)">
+        <label>Last Period Date:</label>
+        <input type="date" id="lastPeriod" required>
+        <label>Cycle Length (days):</label>
+        <input type="number" id="cycleLength" value="28" required>
+        <button type="submit">Generate Calendar & Save</button>
+      </form>
+    </div>
+
+    <!-- Right panel -->
+    <div class="right-panel">
+      <h2>Cycle Calendar</h2>
+      <div id="calendar"></div>
+      <div class="legend">
+        <span class="period">Period</span>
+        <span class="fertile">Fertile</span>
+        <span class="ovulation">Ovulation</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let user = JSON.parse(localStorage.getItem("user"));
+
+    // On page load: display username and load saved cycle
+    window.onload = () => {
+      document.getElementById("usernameDisplay").innerText = user ? user.name : "User";
+
+      if(user && user.cycle) {
+        document.getElementById("lastPeriod").value = user.cycle.lastPeriod;
+        document.getElementById("cycleLength").value = user.cycle.cycleLength;
+        generateCalendarFromData(user.cycle.lastPeriod, user.cycle.cycleLength);
+      }
+    };
+
+    function logout() {
+      localStorage.removeItem("user");
+      window.location.href = "index.html";
+    }
+
+    function generateCalendar(event) {
+      event.preventDefault();
+      const lastDate = document.getElementById("lastPeriod").value;
+      const cycleLength = parseInt(document.getElementById("cycleLength").value);
+
+      // Save to localStorage
+      if(user) {
+        user.cycle = { lastPeriod, cycleLength };
+        localStorage.setItem("user", JSON.stringify(user));
+      }
+
+      generateCalendarFromData(lastDate, cycleLength);
+    }
+
+    function generateCalendarFromData(lastDateStr, cycleLength) {
+      const lastDate = new Date(lastDateStr);
+
+      // Update profile stats
+      const nextPeriod = new Date(lastDate);
+      nextPeriod.setDate(nextPeriod.getDate() + cycleLength);
+
+      const ovulation = new Date(lastDate);
+      ovulation.setDate(ovulation.getDate() + cycleLength - 14);
+
+      const fertileStart = new Date(ovulation);
+      fertileStart.setDate(fertileStart.getDate() - 5);
+
+      document.getElementById("nextPeriod").innerText = nextPeriod.toDateString();
+      document.getElementById("fertileWindow").innerText = `${fertileStart.toDateString()} - ${ovulation.toDateString()}`;
+      document.getElementById("ovulationDay").innerText = ovulation.toDateString();
+
+      // Generate calendar table
+      const calendarDiv = document.getElementById("calendar");
+      calendarDiv.innerHTML = "";
+
+      let html = "<table><tr>";
+      const month = lastDate.getMonth();
+      const year = lastDate.getFullYear();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const day = new Date(year, month, d);
+        let className = "";
+
+        const diff = Math.floor((day - lastDate) / (1000 * 60 * 60 * 24));
+
+        if (diff >= 0 && diff < 5) className = "period";            // period days
+        else if (diff >= 10 && diff <= 16) className = "fertile";   // fertile window
+        else if (diff === 14) className = "ovulation";              // ovulation day
+
+        html += `<td class="${className}">${d}</td>`;
+        if (day.getDay() === 6) html += "</tr><tr>";
+      }
+
+      html += "</tr></table>";
+      calendarDiv.innerHTML = html;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LUNARA Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to LUNARA</h1>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <div class="dashboard-container">
+    <h2 id="welcomeUser"></h2>
+    <div class="dashboard-cards">
+      <div class="card period-card">
+        <h3>Next Period</h3>
+        <p id="nextPeriod">—</p>
+      </div>
+      <div class="card fertile-card">
+        <h3>Fertile Window</h3>
+        <p id="fertileWindow">—</p>
+      </div>
+      <div class="card ovulation-card">
+        <h3>Ovulation Day</h3>
+        <p id="ovulationDay">—</p>
+      </div>
+      <div class="card cycle-card">
+        <h3>Cycle Length</h3>
+        <p id="cycleLengthCard">—</p>
+      </div>
+    </div>
+    <div class="dashboard-buttons">
+      <button onclick="gotoCalendar()">Go to Calendar</button>
+      <button onclick="resetCycle()">Reset Cycle Data</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
